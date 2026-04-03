@@ -155,7 +155,7 @@ if (contactForm) {
 
     try {
       // Try backend API first
-      const response = await fetch('/api/contact', {
+      const response = await fetch('https://portfolionew-bv5p.onrender.com/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
