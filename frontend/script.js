@@ -162,8 +162,13 @@ if (contactForm) {
       });
 
       if (response.ok) {
+        // btn.innerHTML = '<span>Message Sent! ✓</span>';
+        // contactForm.reset();
         btn.innerHTML = '<span>Message Sent! ✓</span>';
         contactForm.reset();
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 1500);
       } else {
         throw new Error('Backend not available');
       }
