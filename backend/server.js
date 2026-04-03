@@ -128,21 +128,29 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
       `,
     };
 
-    await transporter.sendMail(autoReplyOptions);
+    // await transporter.sendMail(autoReplyOptions);
+    try {
+      await transporter.sendMail(autoReplyOptions);
+    } catch (autoReplyError) {
+      console.error('Auto-reply failed:', autoReplyError);
+      // Don't fail the whole request just because auto-reply failed
+    };
 
-    res.status(200).json({
-      success: true,
-      message: 'Message sent successfully! I\'ll get back to you soon.',
-    });
+   
 
-  } catch (error) {
-    console.error('Contact form error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to send message. Please try again or email me directly.',
-    });
-  }
-});
+      res.status(200).json({
+        success: true,
+        message: 'Message sent successfully! I\'ll get back to you soon.',
+      });
+
+    } catch (error) {
+      console.error('Contact form error:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Failed to send message. Please try again or email me directly.',
+      });
+    }
+  });
 
 // Catch-all: serve frontend
 app.get('*', (req, res) => {
